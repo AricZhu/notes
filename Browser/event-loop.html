@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>event-loop</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+        <script>
+            var init = new Date().getTime()
+            function a1(){ console.log('1') }
+            function a2(){ console.log('2') }
+            function a3(){ console.log('3') }
+            function a4(){ console.log('4') }
+            function a5(){ console.log('5') }
+            function a6(){ console.log('6') }
+            function a7(){ console.log('7') }
+            function a8(){ console.log('8') }
+            function a9(){ console.log('9') }
+            function a10(){
+              for(let i = 1;i<10000;i++){}
+              console.log('10')
+            }
+
+            a1()
+            setTimeout(() => {
+                a2()
+                console.log(new Date().getTime()-init)
+                Promise.resolve()
+                    .then(() => { a3() })
+                    .then(() => { a4() })
+                a5()
+            }, 1000)
+
+            setTimeout(()=>{
+                a6()
+                console.log(new Date().getTime()-init)
+            }, 0)
+
+            Promise.resolve()
+                .then(() => { a7()})
+                .then(() => { a8() })
+
+            a9()
+            a10()
+        </script>
+    </body>
+</html>
