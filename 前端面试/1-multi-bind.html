@@ -7,8 +7,8 @@
 </head>
 <body>
     <script>
+        debugger
         if (!Function.prototype.bind2) (function(){
-          debugger
           var slice = Array.prototype.slice
           Function.prototype.bind2 = function() {
             var thatFunc = this, thatArg = arguments[0]
@@ -25,6 +25,12 @@
             }
           }
         })()
+        let [one, two, three] = [{x: 1}, {x: 2}, {x: 3}]
+        let f = function (a) {
+            console.log('a is : ' + a)
+            return this.x
+        }
+        console.log(f.bind2(one, 1).bind2(two, 2).bind2(three, 3)()) // a is : 1, return 1
     </script>
 </body>
 </html>

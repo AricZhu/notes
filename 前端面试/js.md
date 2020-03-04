@@ -2,7 +2,7 @@
 
 ## 1、apply, call, bind
 
-多次 bind 后只会返回第一次的 bind 值，如下：
+多次 bind 后只会返回第一次的 bind 值，如下：(完整例子请看 1-multi-bind.html)
 
 ```js
 let [one, two, three] = [{x: 1}, {x: 2}, {x: 3}]
@@ -25,6 +25,7 @@ if (!Function.prototype.bind) (function(){
       throw new TypeError('Function.prototype.bind - ' +
              'what is trying to be bound is not callable');
     }
+    // 匿名函数
     return function(){
       var funcArgs = args.concat(slice.call(arguments))
       return thatFunc.apply(thatArg, funcArgs);
@@ -33,8 +34,11 @@ if (!Function.prototype.bind) (function(){
 })()
 ```
 
-原因：
-从上述实现上我们可以看到 bind() 的实现，相当于使用函数在内部包了一个 call / apply ，第二次 bind() 相当于再包住第一次 bind() ,故第二次以后的 bind 是无法生效的。
+**原因**：
+
+虽然上述例子中调用了三次 bind，确实将原先函数的this作用域从 {x: 1} 改成 {x: 2}, 最后又变成 {x: 3}，但是当调用函数的时候，调用的是匿名函数，而匿名函数中又是调用的 thatFunc, 这个thatFunc 就是闭包中的前一个调用对象，也就是第二个 bind 后的匿名函数，同样的，在执行第二个 bind 后的匿名函数时，thatFunc 就是第一个bind的匿名函数。
+
+又因为返回的匿名函数中并没有 this，所以前面的 apply 并没有效果(从第三个匿名函数到第二个匿名函数再到第一个匿名函数)，所以最后再运行第一个匿名函数的时候，thatFunc 就是第一次bind时闭包中的f， thatArg 就是闭包中保存的one。这里需要注意的是，funcArgs 由于闭包作用，它现在的值是 [1, 2, 3]
 
 补充：js 中 call 的实现
 
@@ -171,3 +175,59 @@ Function.prototype.apply = function (context, arr) {
 因为机器使用补码形式，所以对于编程中常用到的 32 位 int 类型，可以表示的范围是: [-2^31, 2^31 - 1], 因为第一位表示的是符号位，同时补码又可以多保存一个最小值。
 
 [原码、补码、反码 详解](https://www.cnblogs.com/zhangziqiu/archive/2011/03/30/computercode.html)
+
+## 3、事件委托
+
+事件委托简单来讲就是把一个元素响应事件的函数委托给另一个元素。一般会把一组元素的事件委托给它的父级元素上，从而达到节省资源的目的。(一般都是利用事件冒泡的特性)
+
+[JavaScript 事件委托详解](https://zhuanlan.zhihu.com/p/26536815)
+
+## 4、正则
+
+//**TODO**
+
+```js
+// 将普通的正数千位加 ',', 比如 123456789 转换成 123,456,789
+// 将带小数的值千位加 ',', 比如 153812.7 转换成 153,812.7
+```
+
+[JS正则表达式匹配货币数字](http://c.biancheng.net/view/5648.html)
+
+## 5、手动实现 Promise.all 和 Promise.race
+
+首先我们看下 Promise.all 的定义：该方法用于将多个 Promise 实例包装成一个新的 Promise 实例。用法如下：
+
+```const p = Promise.all([p1, p2, p3])```
+
+上面代码中，Promise.all 方法接受一个数组(或者可迭代对象)，p1, p2, p3 都是 Promise 实例，如果不是，则先用 Promise.resolve 方法转成 Promise 实例。 p 的状态由 p1, p2, p3 决定，分两种情况：
+
+* 只有 p1, p2, p3 的状态都 fulfilled, p 的状态才会 fulfilled, 此时 p1, p2, p3 的值组成一个数组传递给 p 的回调函数
+* 只要 p1, p2, p3 中有一个 rejected，p 的状态就会 rejected，此时第一个被 rejected 的实例的返回值传递个 p 的 rejected 的回调函数
+
+注意：如果参数中的 Promise 实例自己实现了 catch 方法，那么它被 rejected 后是不会触发 Promise.all() 的 catch 方法。
+
+```js
+// Promise.all 的实现
+function promiseAll (promises) {
+  return new Promise((resolve, reject) => {
+    promises = Array.from(promises)
+    let len = promises.length
+    let args = []
+    let count = 0
+
+    promises.forEach((el, idx) => {
+      el.then(val => {
+        args[idx] = val
+        count++
+        if (count === len) {
+          return resolve(args)
+        }
+      }).catch(err => reject(err))
+    })
+  })
+}
+```
+
+我们看下 Promise.race 的定义：同样是将多个 Promise 实例包装成一个新的 Promise 实例，不同的是，只要有一个实例率先改变状态，它的状态就跟着改变。
+
+它的实现较简单，这里就省略了。
