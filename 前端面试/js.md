@@ -1,4 +1,4 @@
-# js 类型问题归类
+# js 前端面试题 1
 
 ## 1、apply, call, bind
 
