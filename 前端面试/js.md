@@ -1,4 +1,4 @@
-# js 前端面试题 1
+# js 前端面试题集锦 1
 
 ## 1、apply, call, bind
 
