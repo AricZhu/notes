@@ -191,3 +191,5 @@ a10()
 [Tasks, microtasks, queues and schedules](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/)
 
 [规范](https://html.spec.whatwg.org/multipage/webappapis.html)
+
+[面试题：说说事件循环机制(满分答案来了)](https://juejin.im/post/5e5c7f6c518825491b11ce93)
