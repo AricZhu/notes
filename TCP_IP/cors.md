@@ -1,4 +1,4 @@
-# 前端安全
+# 前端跨域
 
 ## 浏览器同源策略
 
@@ -426,10 +426,6 @@ Content-Type: text/html; charset=utf-8
 ```
 
 上面头信息中，Access-Control-Allow-Origin 字段是每次回应都必定包含的
-
-## CSRF
-
-## XSS
 
 ## 参考资料
 
