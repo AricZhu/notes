@@ -1,7 +1,7 @@
 # TCP/IP 相关知识总结
 
-* http 协议
+* http
+* cors
 * secure
-* https 协议
-* SSL
-* websocket 协议
+* TODO: SSL
+* TODO: websocket 协议

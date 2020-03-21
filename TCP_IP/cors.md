@@ -427,6 +427,8 @@ Content-Type: text/html; charset=utf-8
 
 上面头信息中，Access-Control-Allow-Origin 字段是每次回应都必定包含的
 
+## 跨域、同域、跨站、同站、浏览器同源
+
 ## 参考资料
 
 1. [同源策略及其解决方案](https://juejin.im/post/5aaa44e2f265da2373142e27)
@@ -438,3 +440,5 @@ Content-Type: text/html; charset=utf-8
 4. [跨域资源共享 CORS 详解](http://www.ruanyifeng.com/blog/2016/04/cors.html)
 
 5. [为什么跨域的post请求区分为简单请求和非简单请求和content-type相关？](https://www.zhihu.com/question/268998684/answer/344949204)
+
+6. [预测最近面试会考 Cookie 的 SameSite 属性](https://zhuanlan.zhihu.com/p/114093227)
