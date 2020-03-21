@@ -253,7 +253,7 @@ DOM 型 XSS 攻击实际上就是前端的 javascript 代码不够严谨，把�
 
 假如使用了前后端分离的框架，前端中使用了 Vue/React 等框架时，最好避免使用 v-html/dangerouslySetInnerHTML 功能，这样在前端的 render 阶段就避免了 innerHTML、outerHTML 的 XSS 隐患了
 
-DOM 中的内联事件监听器，如 location、onclick、onerror、onload、onmouseover 等，<a> 标签的 href 属性，JavaScript 的 eval()、setTimeout()、setInterval() 等，都能把字符串作为代码运行。如果不可信的数据拼接到字符串中传递给这些 API，很容易产生安全隐患，请务必避免
+DOM 中的内联事件监听器，如 location、onclick、onerror、onload、onmouseover 等，\<a\> 标签的 href 属性，JavaScript 的 eval()、setTimeout()、setInterval() 等，都能把字符串作为代码运行。如果不可信的数据拼接到字符串中传递给这些 API，很容易产生安全隐患，请务必避免
 
 ```html
 <!-- 内联事件监听器中包含恶意代码 -->
@@ -277,6 +277,7 @@ eval("UNTRUSTED")
 
 #### 其他安全措施
 
+* CSP: Content Secure Policy, 内容安全策略, 定义页面可以加载哪些资源
 * HTTP-only Cookie: 禁止 JavaScript 读取某些敏感 Cookie，攻击者完成 XSS 注入后也无法窃取此 Cookie
 * 验证码：防止脚本冒充用户提交危险操作
 
@@ -286,10 +287,59 @@ XSS 攻击是一种通过注入恶意代码来窃取用户数据的攻击，它�
 
 XSS 攻击即可以通过服务器后端的漏洞进行，也可以通过前端 javascript 的漏洞进行
 
-## TODO 网络劫持
+## 网络劫持
+
+网路劫持主要分为 HTTP 劫持与 DNS 劫持
+
+**HTTP 劫持**: 大多数情况是运营商 HTTP 劫持，当我们使用了 HTTP 请求请求一个网站页面的时候，网络运营商会在正常的数据流中插入精心设计的网络数据报文，让客户端展示“错误”的数据，通常是一些弹窗，宣传性广告或者直接显示某网站的内容。HTTP 劫持又可细分为如下三类：
+
+* iframe 类劫持：将正常页面嵌入 iframe 或者页面增加 iframe 页面
+* 注入 js 类劫持：在正常页面注入劫持的 js 代码实现的劫持
+* 篡改页面类劫持：正常页面出现多余的劫持网页标签，导致页面整体大小发生了变化
+
+**DNS 劫持**: DNS 劫持就是劫持了 DNS 服务器，通过某些手段取得某域名的解析记录控制权，进而修改此域名的解析结果，导致该域名的访问由原 IP 地址转入到修改后的指定 IP
+，其结果就是对特定的网址不能访问或访问的是假网址，从而实现窃取资料或者破坏原有正常服务的目的
+
+DNS 劫持比之 HTTP 劫持 更加过分，简单说就是我们请求的是 http://www.a.com/index.html ，直接被重定向了 http://www.b.com/index.html
+
+### HTTP 劫持
+
+#### iframe 类劫持
+
+网络运营商通常为了尽可能减少植入广告对原有网站页面的影响，通常会把原有网站页面放置到一个和原页面相同大小的 iframe 里面去，那么就可以通过这个 iframe 来隔离广告代码对原有页面的影响
+
+这种情况下，我们只需要判断 window.self 和 window.top 是否相等就可以了
+
+#### 注入 js 类劫持
+
+这类劫持通常是利用某些标签具有执行 js 的能力而进行的劫持，下面列出一些常见的注入方式：
+
+```html
+<a href="javascript:alert(1)" ></a>
+<iframe src="javascript:alert(1)" />
+<img src='x' onerror="alert(1)" />
+<video src='x' onerror="alert(1)" ></video>
+<div onclick="alert(1)" onmouseover="alert(2)" ><div>
+```
+
+对于这类的 js 注入劫持，通常我们可以建立一个黑名单，然后对页面中的容易被劫持的标签进行筛选过滤
+
+还有可能在原网页中注入外域 js 脚本链接来完成更复杂的劫持，因此对于不受信任的外域脚本，我们需要拦截该脚本的执行
+
+#### 篡改类类劫持
+
+这类的劫持通常较少，一般是在页面底部增加 div，展示一些非网站的内容。我们可以通过 MutationObserver 来监听页面中 DOM 的变化，做出适当的响应
+
+### 劫持的防御
+
+针对劫持的类型不同，我们有不同的防御方法，这里就不详细展开了。由于劫持的方法在不断的更新，因此我们劫持的防御也要与时俱进，所以需要建立一个上报系统，一旦监测到劫持，就上报给服务器，不仅可以让我们程序员第一时间得知攻击的发生，更可以让我们不断收集这类相关信息以便更好的应对。
 
 ## 参考资料
 
 1. [前端安全系列 | CSRF](https://juejin.im/post/5d6945f3f265da03ab4264b8)
 
 2. [前端安全系列（一）：如何防止XSS攻击？](https://juejin.im/post/5bad9140e51d450e935c6d64#comment)
+
+3. [【前端安全】JavaScript防http劫持与XSS](https://www.cnblogs.com/coco1s/p/5777260.html)
+
+4. [Web 前端页面劫持和反劫持](https://juejin.im/post/593df628da2f60006728cff2)
