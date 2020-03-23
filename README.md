@@ -4,5 +4,6 @@
 
 ## TODO
 
-* Promise / async / Generator 实现原理
 * Webpack
+* CSS
+* Vue MVVM 双向绑定
