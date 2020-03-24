@@ -1,10 +1,10 @@
-# Promise / async / Generator 实现原理
+# Promise / async & await / Generator 实现原理
 
 ## Promise 的实现
 
-完整的分析过程请看本文最后的参考资料
+这里直接给出实现代码，完整的分析过程请看本文最后的参考资料
 
-```js
+```javascript
 //Promise/A+规定的三种状态
 const PENDING = 'pending'
 const FULFILLED = 'fulfilled'
@@ -168,6 +168,99 @@ class MyPromise {
 ```
 
 ## async/await 实现
+
+这里直接给出实现代码，完整的分析过程请看本文最后的参考资料
+
+```javascript
+function run(gen) {
+  //把返回值包装成promise
+  return new Promise((resolve, reject) => {
+    var g = gen()
+
+    function step(val) {
+      //错误处理
+      try {
+        var res = g.next(val)
+      } catch(err) {
+        return reject(err)
+      }
+      if(res.done) {
+        return resolve(res.value)
+      }
+      //res.value包装为promise，以兼容yield后面跟基本类型的情况
+      Promise.resolve(res.value).then(
+        val => {
+          step(val)
+        },
+        err => {
+          //抛出错误
+          g.throw(err)
+        })
+    }
+    step()
+  })
+}
+```
+
+## Generator 的实现
+
+这里直接给出实现代码，完整的分析过程请看本文最后的参考资料
+
+```javascript
+// 生成器函数根据yield语句将代码分割为switch-case块，后续通过切换_context.prev和_context.next来分别执行各个case
+function gen$(_context) {
+  while (1) {
+    switch (_context.prev = _context.next) {
+      case 0:
+        _context.next = 2;
+        return 'result1';
+
+      case 2:
+        _context.next = 4;
+        return 'result2';
+
+      case 4:
+        _context.next = 6;
+        return 'result3';
+
+      case 6:
+      case "end":
+        return _context.stop();
+    }
+  }
+}
+
+// 低配版context  
+var context = {
+  next:0,
+  prev: 0,
+  done: false,
+  stop: function stop () {
+    this.done = true
+  }
+}
+
+// 低配版invoke
+let gen = function() {
+  return {
+    next: function() {
+      value = context.done ? undefined: gen$(context)
+      done = context.done
+      return {
+        value,
+        done
+      }
+    }
+  }
+}
+
+// 测试使用
+var g = gen()
+g.next()  // {value: "result1", done: false}
+g.next()  // {value: "result2", done: false}
+g.next()  // {value: "result3", done: false}
+g.next()  // {value: undefined, done: true}
+```
 
 ## 参考资料
 
