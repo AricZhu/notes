@@ -5,5 +5,4 @@
 ## TODO
 
 * Webpack
-* CSS
 * Vue MVVM 双向绑定
