@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 数据双向绑定的实现</title>
+</head>
+<body>
+  <div id="app">
+    <div>
+      <input v-bind:value="msg" />
+    </div>
+    <div>msg is: </div>
+    <div>{{ msg }}</div>
+    <div>count is: </div>
+    <div>{{ count }}</div>
+    <div>inner HTML:</div>
+    <div v-html="htmlText"></div>
+    <button v-on:click="clickBtn">change msg</button>
+    <button v-on:click="addOne">add</button>
+  </div>
+  <script src="./js/observer.js"></script>
+  <script src="./js/watcher.js"></script>
+  <script src="./js/compile.js"></script>
+  <script src="./js/mvvm.js"></script>
+  <script>
+    const vm = new MVVM({
+      el: '#app',
+      data: {
+        msg: 'hello mvvm',
+        count: 0,
+        htmlText: `<ul>
+            <li>vue</li>
+            <li>react</li>
+            <li>angular</li>
+          </ul>`
+      },
+      methods: {
+        clickBtn () {
+          console.log('prev this.msg is: ')
+          console.log(this.msg)
+          this.msg += Math.random()
+        },
+        addOne () {
+          console.log('prev this.count is: ')
+          console.log(this.count)
+          this.count++
+        }
+      }
+    })
+  </script>
+</body>
+</html>
