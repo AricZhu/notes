@@ -1,4 +1,7 @@
-# React 源码阅读
+# React
+
+* mixins, hoc, hook
+* unit test
 
 [React16源码解读：开篇带你搞懂几个面试考点](https://github.com/qq591468061/xwfe/issues/11)
 
