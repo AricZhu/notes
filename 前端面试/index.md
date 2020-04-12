@@ -146,3 +146,15 @@ Process.nextTick，pronise, setImmediate的优先级
 1. ['a','b'],['A','B'],['1','0']，输出['aA1','aA0','aB1','aB0','bA1','bA0','bB1','bB0']，算法的排列组合问题
 
 [一年半前端面试](https://www.ohmyrss.com/post/1583296354893)
+
+## 字节跳动面试
+
+![1.jpg](./img/1.jpg)
+
+![2.jpg](./img/2.jpg)
+
+![3.jpg](./img/3.jpg)
+
+![4.jpg](./img/4.jpg)
+
+![5.jpg](./img/5.jpg)
