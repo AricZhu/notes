@@ -22,3 +22,7 @@
 [Vitual DOM 的内部工作原理](https://efe.baidu.com/blog/the-inner-workings-of-virtual-dom/)
 
 [完全理解 redux（从零实现一个 redux）](https://github.com/brickspert/blog/issues/22#state)
+
+[React 中的高阶组件及其应用场景](https://juejin.im/post/5c72b97de51d4545c66f75d5)
+
+[Render Props and Hooks](https://juejin.im/post/5c9d7485e51d451ba13d9a93)
