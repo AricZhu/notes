@@ -1,5 +1,9 @@
 # 前端面试题集锦
 
+## 字节跳动
+
+笔试:
+
 apply, call, bind
 原码，补码，反码
 事件委托
@@ -152,8 +156,6 @@ Process.nextTick，pronise, setImmediate的优先级
 * ['a','b'],['A','B'],['1','0']，输出['aA1','aA0','aB1','aB0','bA1','bA0','bB1','bB0']，算法的排列组合问题
 
 [一年半前端面试](https://www.ohmyrss.com/post/1583296354893)
-
-## 字节跳动面试
 
 ![1.jpg](./img/1.jpg)
 
