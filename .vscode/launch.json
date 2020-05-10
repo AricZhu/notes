@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/前端面试/demo.js"
+            "program": "${file}"
         }
     ]
 }

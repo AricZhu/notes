@@ -10,8 +10,8 @@ apply, call, bind
 手动实现 Promise.all 和 Promise.race
 
 一轮
-1.dom react原理 
-2.css布局 
+1.dom react原理
+2.css布局
 3.js原型链继承
 4.fetch取消
 5.eventloop

@@ -7,6 +7,8 @@
 
 ## 参考资料
 
+[React Fiber](https://juejin.im/post/5ab7b3a2f265da2378403e57)
+
 [「 一个DIY指南 > 建立你自己的React 翻译」](https://github.com/chinanf-boy/didact-explain)
 
 [React16源码解读：开篇带你搞懂几个面试考点](https://github.com/qq591468061/xwfe/issues/11)

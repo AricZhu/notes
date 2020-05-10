@@ -4,7 +4,4 @@
 
 ## TODO
 
-* Promise 的实现
-* Webpack 的 HMR 原理
-* 虚拟列表
 * 大文件上传
