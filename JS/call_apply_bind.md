@@ -45,7 +45,7 @@ Function.prototype.call2 = function (context) {
   for (let i = 1; i < arguments.length; i++) {
     args.push('arguments[' + i + ']') // args = ['arguments[1]', 'arguments[2]', 'arguments[3]', ...]
   }
-  let ret = eval('contextfn(' + args + ')') // 这里面用到了数组和字符串的隐式转换, '(' + ['a', 'b' + ')' = '(a, b)'
+  let ret = eval('context.fn(' + args + ')') // 这里面用到了数组和字符串的隐式转换, '(' + ['a', 'b' + ')' = '(a, b)'
   delete context.fn
   return ret
 }

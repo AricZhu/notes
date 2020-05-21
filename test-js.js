@@ -1,1 +1,31 @@
-// 实现 taskSum(1000,()=>{console.log(1)}).task(1200,()=>{console.log(2)}).task(1300,()=>{console.log(3)})，这里等待1s，打印1，之后等待1.2s，打印2，之后打印1.3s，打印3
+let template = '你好，我们公司是{{ company }}，我们属于{{group.name}}业务线，我们在招聘各种方向的人才，包括{{group.jobs[0]}}、{{group["jobs"][1]}}等。';
+let obj = {
+    group: {
+        name: '天猫',
+        jobs: ['前端']
+    },
+    company: '阿里'
+}
+
+
+function _getValueRecur (key, obj) {
+	if (key in obj) {
+    	return obj[key]
+    }
+  	const reg = /(\w+)(\.|\[)/
+    const match = key.match(reg)
+    console.log(match)
+    if (match) {
+    }
+}
+
+
+function render (template, obj) {
+  // 代码实现
+  const reg = /{{\s*([^{{}}]+)\s*}}/g
+  template.replace(reg, (match, $1, idx) => {
+    console.log(idx)
+  })
+}
+
+render(template, obj)

@@ -3,55 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>test-layout</title>
+  <title>实现一个梯形</title>
   <style>
     body, html {
       margin: 0;
       padding: 0;
     }
-    .wrap {
-      width: 100%;
-    }
-    .mid-wrapper {
-      width: 100%;
-      float: left;
-    }
-    .mid {
-      margin: 0 200px;
-      height: 200px;
-      width: 100%;
-      color: #fff;
-      background: #ff9900;
-    }
-    .left {
-      float: left;
-      width: 200px;
-      margin-left: -100%;
-      height: 200px;
-      color: #fff;
-      background: #2d8cef;
-    }
-    .right {
-      float: left;
-      width: 200px;
-      margin-left: -200px;
-      height: 200px;
-      color: #fff;
-      background: #aaa;
+    .trap {
+      height: 0;
+      width: 100px;
+      border: 200px solid rgba(0, 0, 0, 0);
+      border-bottom: 200px solid #2d8cef;
     }
   </style>
 </head>
 <body>
-  <div>双飞翼布局</div>
-  <p>1. 三栏式布局</p>
-  <p>2. 左右两栏固定宽度，中间一栏弹性变化</p>
-  <p>3. 中间一栏最先加载出来，然后是左边栏加载，然后是右边栏加载</p>
-  <div class="wrap">
-    <div class="mid-wrapper">
-      <div class="mid">mid content</div>
-    </div>
-    <div class="left">left content</div>
-    <div class="right">right content</div>
-  </div>
+  <div class="trap"></div>
 </body>
 </html>

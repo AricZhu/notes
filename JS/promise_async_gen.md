@@ -28,7 +28,7 @@ class MyPromise {
 
         // 这里之所以使用一个队列来储存回调,是为了实现规范要求的 "then 方法可以被同一个 promise 调用多次"
         // 如果使用一个变量而非队列来储存回调,那么即使多次p1.then()也只会执行一次回调
-        while(this._resolveQueue.length) {    
+        while(this._resolveQueue.length) {
           const callback = this._resolveQueue.shift()
           callback(val)
         }

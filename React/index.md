@@ -28,3 +28,11 @@
 [React 中的高阶组件及其应用场景](https://juejin.im/post/5c72b97de51d4545c66f75d5)
 
 [Render Props and Hooks](https://juejin.im/post/5c9d7485e51d451ba13d9a93)
+
+[浅谈React性能优化的方向](https://juejin.im/post/5d045350f265da1b695d5bf2)
+
+[React 组件设计实践](https://juejin.im/post/5cdc2f54e51d453b0c35930d#heading-0)
+
+[React 16 加载性能优化指南](https://zhuanlan.zhihu.com/p/37148975)
+
+[这可能是最通俗的 React Fiber(时间分片) 打开方式](https://juejin.im/post/5dadc6045188255a270a0f85)
